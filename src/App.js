@@ -86,9 +86,8 @@ class LotteryTicket extends React.Component {
             Weiter
           </button>
         </div>
-        {/* TODO bugfix sort | not a number */}
         <ChosenList
-          list={Array.from(this.state.activeFields).sort()}
+          list={Array.from(this.state.activeFields).sort((a, b) => a - b)}
           className={this.state.showLuckyNumbers ? "" : "lucky-numbers--hide"}
         />
       </div>
@@ -137,7 +136,6 @@ class TicketField extends React.Component {
 function ChosenList(props) {
   const listItems = props.list.map(number => <li key={number}>{number}</li>);
 
-  console.log(listItems);
   if (listItems.length > 0) {
     return (
       <section className={`lucky-numbers ${props.className}`}>
