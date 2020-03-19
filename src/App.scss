@@ -25,24 +25,24 @@ body {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
   &__content {
-  position: relative;
+    position: relative;
     &--floatRight {
-  display: flex;
-  justify-content: space-between;
-}
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   &__caption {
-  color: $secondary-color;
-}
+    color: $secondary-color;
+  }
 
   &__grid {
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(7, 2rem);
-  grid-gap: 0.1rem;
-  grid-auto-rows: minmax(2rem, auto);
-}
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(7, 2rem);
+    grid-gap: 0.1rem;
+    grid-auto-rows: minmax(2rem, auto);
+  }
 
   &__button {
     border: none;
@@ -89,47 +89,47 @@ body {
 
   &--active::before,
   &--active::after {
-  content: "";
-  border-bottom: solid 3px $black;
-  border-radius: 1px;
-  width: 100%;
-  position: absolute;
-  transition: width 150ms;
-}
+    content: "";
+    border-bottom: solid 3px $black;
+    border-radius: 1px;
+    width: 100%;
+    position: absolute;
+    transition: width 150ms;
+  }
 
   &--inactive::before,
   &--inactive::after {
-  content: "";
-  border-bottom: solid 3px $black;
-  border-radius: 1px;
-  position: absolute;
-  width: 0;
-  transition: width 150ms;
-}
+    content: "";
+    border-bottom: solid 3px $black;
+    border-radius: 1px;
+    position: absolute;
+    width: 0;
+    transition: width 150ms;
+  }
 
   &--active::before,
   &--inactive::before {
-  transition-delay: 75ms;
-  transform: rotate(40deg);
-}
+    transition-delay: 75ms;
+    transform: rotate(40deg);
+  }
 
   &--active::after,
   &--inactive::after {
-  transform: rotate(-40deg);
-}
+    transform: rotate(-40deg);
+  }
 
   &--disabled {
-  background-color: $disabled-color;
-  color: $disabled-text;
-  box-shadow: none;
-  transition: color 150ms;
+    background-color: $disabled-color;
+    color: $disabled-text;
+    box-shadow: none;
+    transition: color 150ms;
     cursor: not-allowed;
-}
+  }
 
   &--wiggle {
     animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955)
       both;
-}
+  }
 }
 
 .lucky-numbers {
@@ -137,22 +137,30 @@ body {
   padding: 1rem;
   border-radius: 2px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
+  &__caption {
+    font-size: 0.8rem;
+  }
 
-.lucky-numbers__caption {
-  font-size: 0.8rem;
-}
+  &__list {
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    list-style-type: none;
+    font-size: 0.8rem;
+  }
 
-.lucky-numbers__list {
-  margin: 0;
-  padding: 0;
-  text-indent: 0;
-  list-style-type: none;
-  font-size: 0.8rem;
-}
+  &__list-element {
+    display: inline;
 
-.lucky-numbers--hide {
-  display: none;
+    &:not(:last-child):after {
+      content: ",";
+      padding-right: 0.5ch;
+    }
+  }
+
+  &--hide {
+    display: none;
+  }
 }
 
 /* ----------------------------------------------

@@ -138,7 +138,11 @@ class TicketField extends React.Component {
 }
 
 function ChosenList(props) {
-  const listItems = props.list.map(number => <li key={number}>{number}</li>);
+  const listItems = props.list.map(number => (
+    <li key={number} className="lucky-numbers__list-element">
+      {number}
+    </li>
+  ));
 
   if (listItems.length > 0) {
     return (
