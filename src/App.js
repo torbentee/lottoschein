@@ -16,7 +16,12 @@ const MAX_ACTIVE_TICKET_FIELDS = 6;
 const FIELDS = 49;
 
 class LotteryTicket extends React.Component {
-  state = { message: "", activeFields: new Set(), continue: false };
+  state = {
+    message: "",
+    activeFields: new Set(),
+    continue: false,
+    showLuckyNumbers: false
+  };
 
   callbackFunction = childKey => {
     console.log("message from child " + childKey + " this ");
@@ -84,6 +89,11 @@ class LotteryTicket extends React.Component {
             Weiter
           </button>
         </div>
+        {/* TODO bugfix sort | not a number */}
+        <ChosenList
+          list={Array.from(this.state.activeFields).sort()}
+          className={this.state.showLuckyNumbers ? "" : "lucky-numbers--hide"}
+        />
       </div>
     );
   }
@@ -127,7 +137,22 @@ class TicketField extends React.Component {
     );
   }
 }
+
+function ChosenList(props) {
+  const listItems = props.list.map(number => <li key={number}>{number}</li>);
+
+  console.log(listItems);
+  if (listItems.length > 0) {
+    return (
+      <section className={`lucky-numbers ${props.className}`}>
+        <h1 className="lucky-numbers__caption">
+          Deine ausgewählten Glückszahlen
+        </h1>
+        <ul className="lucky-numbers__list">{listItems}</ul>
+      </section>
     );
+  } else {
+    return "";
   }
 }
 
