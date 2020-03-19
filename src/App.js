@@ -1,12 +1,13 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="h1">Lottoschein</h1>
+      <section className="lotto-ticket">
+        <h1 className="lotto-ticket__caption">Lottoschein</h1>
       <LotteryTicket />
+      </section>
     </div>
   );
 }
@@ -67,15 +68,18 @@ class LotteryTicket extends React.Component {
 
   render() {
     return (
-      <div className="content">
-        <div className="gridWrapper">{this.state.fields}</div>
-        <div className="floatRight">
+      <div className="lotto-ticket__content">
+        <div className="lotto-ticket__grid">{this.state.fields}</div>
+        <div className="lotto-ticket__content--floatRight">
           <button
-            className={
-              "btn-continue" +
-              " " +
-              (this.state.continue ? "show" : "hide fade-out")
-            }
+            onClick={() => this.setState({ showLuckyNumbers: true })}
+            className={`
+              lotto-ticket__button
+              ${
+                this.state.continue
+                  ? "lotto-ticket__button--show"
+                  : "lotto-ticket__button--hide fade-out"
+              }`}
           >
             Weiter
           </button>
@@ -104,22 +108,25 @@ class TicketField extends React.Component {
 
   render() {
     return (
-      <span
+      <button
         onClick={this.handleClick}
         onAnimationEnd={e => {
-          e.target.classList.remove("wiggle");
+          e.target.classList.remove("ticket-field--wiggle");
           this.setState({ isWarning: false });
         }}
-        className={
-          "ticketField" +
-          " " +
-          (this.state.isActive ? "ticketFieldActive" : "ticketFieldInactive") +
-          " " +
-          (this.state.isWarning ? "wiggle" : "")
+        className={`ticket-field
+          ${
+            this.state.isActive
+              ? "ticket-field--active"
+              : "ticket-field--inactive"
         }
+          ${this.state.isWarning ? "ticket-field--wiggle" : ""}`}
       >
         {this.props.content}
-      </span>
+      </button>
+    );
+  }
+}
     );
   }
 }
