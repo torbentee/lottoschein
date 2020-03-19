@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <section className="lotto-ticket">
         <h1 className="lotto-ticket__caption">Lottoschein</h1>
-      <LotteryTicket />
+        <LotteryTicket />
       </section>
     </div>
   );
@@ -24,9 +24,6 @@ class LotteryTicket extends React.Component {
   };
 
   callbackFunction = childKey => {
-    console.log("message from child " + childKey + " this ");
-    console.log(this);
-
     if (this.state.activeFields.has(childKey)) {
       this.setState({ childKey: this.state.activeFields.delete(childKey) });
       this.setContinueState(this.state.activeFields.size);
@@ -64,7 +61,7 @@ class LotteryTicket extends React.Component {
   }
 
   setContinueState(size) {
-    if (this.state.activeFields.size == MAX_ACTIVE_TICKET_FIELDS) {
+    if (this.state.activeFields.size === MAX_ACTIVE_TICKET_FIELDS) {
       this.setState({ continue: true });
     } else {
       this.setState({ continue: false });
@@ -108,7 +105,6 @@ class TicketField extends React.Component {
   handleClick = e => {
     const changeState = this.props.parentCallback(this.props.customKey);
 
-    console.log(e.target);
     if (changeState) {
       this.setState({ isActive: !this.state.isActive });
     } else {
@@ -129,7 +125,7 @@ class TicketField extends React.Component {
             this.state.isActive
               ? "ticket-field--active"
               : "ticket-field--inactive"
-        }
+          }
           ${this.state.isWarning ? "ticket-field--wiggle" : ""}`}
       >
         {this.props.content}
