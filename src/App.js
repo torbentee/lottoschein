@@ -16,12 +16,14 @@ const MAX_ACTIVE_TICKET_FIELDS = 6;
 const FIELDS = 49;
 
 class LotteryTicket extends React.Component {
-  state = {
-    message: "",
-    activeFields: new Set(),
-    continue: false,
-    showLuckyNumbers: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeFields: new Set(),
+      continue: false,
+      showLuckyNumbers: false
+    };
+  }
 
   callbackFunction = childKey => {
     if (this.state.activeFields.has(childKey)) {
@@ -41,11 +43,7 @@ class LotteryTicket extends React.Component {
     }
   };
 
-  componentDidMount() {
-    this.initializeFields();
-  }
-
-  initializeFields() {
+  getFields() {
     let fieldsList = [];
     for (let index = 1; index <= FIELDS; index++) {
       fieldsList.push(
@@ -54,13 +52,14 @@ class LotteryTicket extends React.Component {
           customKey={index}
           content={index}
           parentCallback={this.callbackFunction}
+          continue={this.state.continue}
         />
       );
     }
-    this.setState({ fields: fieldsList });
+    return fieldsList;
   }
 
-  setContinueState(size) {
+  setContinueState() {
     if (this.state.activeFields.size === MAX_ACTIVE_TICKET_FIELDS) {
       this.setState({ continue: true });
     } else {
@@ -71,7 +70,7 @@ class LotteryTicket extends React.Component {
   render() {
     return (
       <div className="lotto-ticket__content">
-        <div className="lotto-ticket__grid">{this.state.fields}</div>
+        <div className="lotto-ticket__grid">{this.getFields()}</div>
         <div className="lotto-ticket__content--floatRight">
           <button
             onClick={() => this.setState({ showLuckyNumbers: true })}
@@ -125,7 +124,12 @@ class TicketField extends React.Component {
               ? "ticket-field--active"
               : "ticket-field--inactive"
           }
-          ${this.state.isWarning ? "ticket-field--wiggle" : ""}`}
+          ${this.state.isWarning ? "ticket-field--wiggle" : ""}
+          ${
+            this.props.continue && !this.state.isActive
+              ? "ticket-field--disabled"
+              : ""
+          }`}
       >
         {this.props.content}
       </button>
