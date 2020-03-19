@@ -87,7 +87,7 @@ class LotteryTicket extends React.Component {
         </div>
         <ChosenList
           list={Array.from(this.state.activeFields).sort((a, b) => a - b)}
-          className={this.state.showLuckyNumbers ? "" : "lucky-numbers--hide"}
+          className={this.state.showLuckyNumbers ? "lucky-numbers--show" : ""}
         />
       </div>
     );
@@ -144,7 +144,7 @@ function ChosenList(props) {
     </li>
   ));
 
-  if (listItems.length > 0) {
+  if (listItems.length === MAX_ACTIVE_TICKET_FIELDS) {
     return (
       <section className={`lucky-numbers ${props.className}`}>
         <h1 className="lucky-numbers__caption">
